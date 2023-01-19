@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+    <link rel="stylesheet" href="../css/signup.css">
+</head>
+<body>
+    <h2>Header</h2>
+    <form action="/company_signup_register" method="post" id="contact">
+        <input type="text" name="name" id="name" placeholder="Enter Company Name">
+        <input type="email" name="email" id="email" placeholder="Enter Email">
+        <input type="text" name="req_age" id="req_age" placeholder="Required Age Group">
+        <input type="text" name="req_cpi" id="req_cpi" placeholder="Required CPI">
+        <input type="text" name="website" id="website" placeholder="Enter Official Website">
+        <input type="text" name="position_req" id="position_req" placeholder="Enter Position Required">
+        <input type="text" name="package" id="package" placeholder="Package to Give">
+        <textarea name="description" id="description" cols="30" rows="10" placeholder="More About the Company"></textarea>
+        <input type="text" name="password" id="password" placeholder="Enter your Password">
+        <input type="text" name="confirmpassword" id="confirmpassword" placeholder="Confirm Your Password">
+        <button class="btn">Submit Details</button>
+    </form>
+    <div>
+        Already signed up?<a href="/company_login">Login</a>
+    </div>
+</body>
+</html>
