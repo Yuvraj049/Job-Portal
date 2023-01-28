@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Profile</title>
+</head>
+<body>
+        <ul>
+            <li class="name">Name:<%=user_info.name%></li>
+            <li class="email">Email:<%=user_info.email%></li>
+            <li class="age">Required Age:<%=user_info.required_age%></li>
+            <li class="cpi">Required CPI:<%=user_info.required_cpi%></li>
+            <li class="web">Website:<%=user_info.website%></li>
+            <li class="position">Postion Required:<%=user_info.position_required%></li>
+            <li class="package">Package:<%=user_info.package%></li>
+            <li class="description">Desciption:<%=user_info.description%></li>
+        </ul>
+        <a id ="delete" href="/delete_company/<%= user_info._id%>">delete</a>
+        <a id="edit" href="/edit_company/<%= user_info._id%>">edit</a>
+
+        <script>
+            let para =document.getElementById('delete');
+            para.addEventListener('click',function run(){
+            alert('Do you really want to delete this account?');
+        });
+        </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile</title>
+</head>
+<body>
+        <ul>
+            <li class="name">Name:<%=user_info.name%></li>
+            <li class="email">Email:<%=user_info.email%></li>
+            <li class="age">Age:<%=user_info.age%></li>
+            <li class="gender">Gender:<%=user_info.gender%></li>
+            <li class="cpi">CPI:<%=user_info.cpi%></li>
+            <li class="address">Address:<%=user_info.address%></li>
+        </ul>
+        <a id ="delete" href="/delete_student/<%= user_info._id%>">delete</a>
+        <a id="edit" href="/edit_student/<%= user_info._id%>">edit</a>
+        <a id="eligible_company" href="/eligible_company/<%= user_info._id%>">search company</a>
+
+        <script>
+            let para =document.getElementById('delete');
+            para.addEventListener('click',function run(){
+            alert('Do you really want to delete this account?');
+        });
+        </script>
+</body>
+</html>

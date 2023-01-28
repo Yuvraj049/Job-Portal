@@ -226,6 +226,26 @@ app.post("/edit_company/:id", async(req,res)=>{
     }
 })
 
+app.get("/eligible_company/:id",async(req,res)=>{
+    try{
+        const user_id = req.params.id;
+        const user_info = await student_Register.findOne({_id:user_id});
+        if(!user_id){
+            return res.status(400).send();
+        }
+        
+    let comp_data = await company_Register.find( // used as array in eligible_companies.ejs
+        {
+        "$and":[
+        {required_age:user_info.age},
+        {required_cpi:user_info.cpi}
+        ]})
+
+        res.status(201).render("eligible_companies",{comp_data:comp_data});
+    }catch(error){
+        res.status(500).send(error.message);
+    }
+})
 
 app.listen(port,()=>{
     console.log('Server running at http://'+hostname+':'+port+'/');

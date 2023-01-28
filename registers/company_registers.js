@@ -22,7 +22,6 @@ const userSchema2 = new mongoose.Schema({
     website:{
         type:String,
         required:true,
-        unique:true
     },
     position_required:{
         type:String,

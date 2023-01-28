@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=], initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="./css/student_signup.css">
+</head>
+<body>
+    <h1>Login here</h1>
+    <form action="/student_signup_register" method="post" id="contact">
+        <input type="text" name="name" id="name" placeholder="Enter your Full Name">
+        <input type="email" name="email" id="email" placeholder="Enter your Email ID">
+        <input type="number" name="age" id="age" placeholder="Enter your Age">
+        <input type="text" name="gender" id="gender" placeholder="Enter your Gender">
+        <input type="number" name="cpi" id="cpi" placeholder="Enter your CPI">
+        <textarea name="address" id="address" cols="30" rows="10" placeholder="Enter your address"></textarea>
+        <input type="text" name="password" id="password" placeholder="Enter your Password">
+        <input type="text" name="confirmpassword" id="confirmpassword" placeholder="Confirm Your Password">
+        <button class="btn">Submit Details</button>
+    </form>
+    <div>
+        Already signed up?<a href="/student_login">Login</a>
+    </div>
+</body>
+</html>

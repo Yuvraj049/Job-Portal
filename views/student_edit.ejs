@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile</title>
+</head>
+<body>
+    <h1>Edit here</h1>
+    <form action="/edit_student/<%= user_info._id%>" method="POST" id="form">
+        <input type="hidden" value="<%=user_info._id%>" name="_id">
+        <input type="text" value="<%=user_info.name%>" name="name" id="name" placeholder="Enter your Full Name">
+        <input type="email" value="<%=user_info.email%>" name="email" id="email" placeholder="Enter your Email ID">
+        <input type="number" value="<%=user_info.age%>" name="age" id="age" placeholder="Enter your Age">
+        <input type="text" value="<%=user_info.gender%>" name="gender" id="gender" placeholder="Enter your Gender">
+        <input type="number" value="<%=user_info.cpi%>" name="cpi" id="cpi" placeholder="Enter your CPI">
+        <textarea name="address" id="address" cols="30" rows="10" placeholder="Enter your address"><%=user_info.address%></textarea>
+        <button id="update">Update Profile</button>
+    </form>
+    
+        <script>
+            let para =document.getElementById('update');
+            para.addEventListener('click',function run(){
+            alert('Do you really want to save the update your profile?');
+        });
+        </script>
+</body>
+</html>

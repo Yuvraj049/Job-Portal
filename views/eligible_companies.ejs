@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eligible Companies</title>
+</head>
+<body>
+    <div>
+          
+         <% for(let i=0 ; i<comp_data.length ;i++){ %>
+            <div>
+                <ul>
+                    <li class="name">Name:<%=comp_data[i].name%></li>
+                    <li class="email">Email:<%=comp_data[i].email%></li>
+                    <li class="web">Website:<%=comp_data[i].website%></li>
+                    <li class="position">Postion Required:<%=comp_data[i].position_required%></li>
+                    <li class="package">Package:<%=comp_data[i].package%></li>
+                    <li class="description">Desciption:<%=comp_data[i].description%></li>
+                </ul>
+            </div>
+        <%}%>
+    </div>
+    
+</body>
+</html>
