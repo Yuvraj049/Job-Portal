@@ -23,10 +23,13 @@ const userSchema1 = new mongoose.Schema({
         type:Number,
         required:true
     },
-    address:{
+    batch:{
+        type:Number,
+        required:true
+    },
+    techstack:{
         type:String,
-        required:true,
-        unique:true
+        required:true
     },
     password:{
         type:String,

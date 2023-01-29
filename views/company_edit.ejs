@@ -13,12 +13,12 @@
         <input type="hidden" value="<%=user_info._id%>" name="_id">
         <input type="text" value="<%=user_info.name%>" name="name" id="name" placeholder="Enter Company Name">
         <input type="email" value="<%=user_info.email%>" name="email" id="email" placeholder="Enter Email">
-        <input type="number" value="<%=user_info.required_age%>" name="required_age" id="req_age" placeholder="Required Age Group">
-        <input type="number" value="<%=user_info.required_cpi%>" name="required_cpi" id="req_cpi" placeholder="Required CPI">
-        <input type="text" value="<%=user_info.website%>" name="website" id="website" placeholder="Enter Official Website">
         <input type="text" value="<%=user_info.position_required%>" name="position_required" id="position_req" placeholder="Enter Position Required">
+        <input type="number" value="<%=user_info.required_cpi%>" name="required_cpi" id="req_cpi" placeholder="Required CPI">
         <input type="text" value="<%=user_info.package%>" name="package" id="package" placeholder="Package to Give">
-        <textarea name="description" id="description" cols="30" rows="10" placeholder="More About the Company"><%=user_info.description%></textarea>
+        <input type="text" value="<%=user_info.website%>" name="website" id="website" placeholder="Enter Official Website">
+        <input type="text" value="<%=user_info.description%>" name="description" id="description" placeholder="Description">
+        <input type="text" value="<%=user_info.address%>" name="address" id="address" placeholder="Address">
         <button id="update">Update Profile</button>
     </form>
     

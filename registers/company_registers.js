@@ -11,28 +11,28 @@ const userSchema2 = new mongoose.Schema({
         required:true,
         unique:true
     },
-    required_age:{
-        type:Number,
+    position_required:{
+        type:String,
         required:true
     },
     required_cpi:{
         type:Number,
         required:true
     },
-    website:{
-        type:String,
-        required:true,
-    },
-    position_required:{
-        type:String,
-        required:true
-    },
     package:{
         type:String,
         required:true
     },
+    website:{
+        type:String,
+        required:true,
+    },
     description:{
         type:String
+    },
+    address:{
+        type:String,
+        required:true
     },
     password:{
         type:String,

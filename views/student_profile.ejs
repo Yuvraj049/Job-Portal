@@ -2,28 +2,132 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>Student Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
+	<link rel="stylesheet" href="./static/css/student_profile.css">
 </head>
 <body>
-        <ul>
-            <li class="name">Name:<%=user_info.name%></li>
-            <li class="email">Email:<%=user_info.email%></li>
-            <li class="age">Age:<%=user_info.age%></li>
-            <li class="gender">Gender:<%=user_info.gender%></li>
-            <li class="cpi">CPI:<%=user_info.cpi%></li>
-            <li class="address">Address:<%=user_info.address%></li>
-        </ul>
-        <a id ="delete" href="/delete_student/<%= user_info._id%>">delete</a>
-        <a id="edit" href="/edit_student/<%= user_info._id%>">edit</a>
-        <a id="eligible_company" href="/eligible_company/<%= user_info._id%>">search company</a>
+		
+<header class="ScriptHeader">
+    <div class="rt-container">
+    	<div class="col-rt-12">
+        	<div class="rt-heading">
+            	<h1>Student Profile</h1>
+            </div>
+        </div>
+    </div>
+</header>
 
-        <script>
-            let para =document.getElementById('delete');
-            para.addEventListener('click',function run(){
-            alert('Do you really want to delete this account?');
-        });
-        </script>
-</body>
+<section>
+    <div class="rt-container">
+          <div class="col-rt-12">
+              <div class="Scriptcontent">
+              
+<!-- Student Profile -->
+<div class="student-profile py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card shadow-sm">
+          <div class="card-header bg-transparent text-center" style="margin-top: 13px; margin-bottom: 13px;">
+            <img class="profile_img" src="./static/img/student_image.jpg" alt="student dp">
+            <h3></h3>
+          </div>
+          <div class="card-body" style="margin: 11px;">
+            <p class="mb-0" ><strong class="pr-1">Name:</strong><%=user_info.name%></p>
+            <p class="mb-0"><strong class="pr-1">Age:</strong><%=user_info.age%></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card shadow-sm">
+          <div class="card-header bg-transparent border-0">
+            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>About</h3>
+          </div>
+          <div class="card-body pt-0">
+            <table class="table table-bordered">
+              <tr>
+                <th width="30%">E-mail</th>
+                <td width="2%">:</td>
+                <td><%=user_info.email%></td>
+              </tr>
+              <tr>
+                <th width="30%">Gender</th>
+                <td width="2%">:</td>
+                <td><%=user_info.gender%></td>
+              </tr>
+              <tr>
+                <th width="30%">CPI</th>
+                <td width="2%">:</td>
+                <td><%=user_info.cpi%></td>
+              </tr>
+              <tr>
+                <th width="30%">Batch</th>
+                <td width="2%">:</td>
+                <td><%=user_info.batch%></td>
+              </tr>
+              <tr>
+                <th width="30%">TechStack</th>
+                <td width="2%">:</td>
+                <td><%=user_info.techstack%></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+          <div style="height: 20px"></div>
+        <div class="card shadow-sm">
+          <div class="card-header bg-transparent border-0">
+            <h3 class="mb-0" id="buttons">
+                <a id ="delete"  onclick="confirmDelete()"  href="/delete_student/<%= user_info._id%>">Delete Account</a>
+                <a id="edit" href="/edit_student/<%= user_info._id%>">Edit Profile</a>   
+                <a id="eligible_company" href="/eligible_company/<%= user_info._id%>">Eligible Companies</a>
+            </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+           
+    		</div>
+		</div>
+    </div>
+</section>
+<script>
+    function confirmDelete(){
+        let confirm = confirm("Do you really want to delete this account?");
+        if(confirm){
+            console.log(`yes`);
+        }
+        else{
+            console.log(`no`);
+        }
+    }
+</script>
+	</body>
 </html>
+
+
+<!-- <ul>
+    <li class="name">Name:<%=user_info.name%></li>
+    <li class="email">Email:<%=user_info.email%></li>
+    <li class="age">Age:<%=user_info.age%></li>
+    <li class="gender">Gender:<%=user_info.gender%></li>
+    <li class="cpi">CPI:<%=user_info.cpi%></li>
+    <li class="batch">Batch:<%=user_info.batch%></li>
+    <li class="techstack">TechStack:<%=user_info.techstack%></li>
+</ul>
+<a id ="delete" href="/delete_student/<%= user_info._id%>">delete</a>
+<a id="edit" href="/edit_student/<%= user_info._id%>">edit</a>
+<a id="eligible_company" href="/eligible_company/<%= user_info._id%>">search company</a>
+
+<script>
+    let para =document.getElementById('delete');
+    para.addEventListener('click',function run(){
+    alert('Do you really want to delete this account?');
+});
+</script> -->

@@ -2,23 +2,58 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Profile</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Student Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <link href="./static/css/student_edit.css" rel="stylesheet" media="all">
 </head>
 <body>
-    <h1>Edit here</h1>
-    <form action="/edit_student/<%= user_info._id%>" method="POST" id="form">
-        <input type="hidden" value="<%=user_info._id%>" name="_id">
-        <input type="text" value="<%=user_info.name%>" name="name" id="name" placeholder="Enter your Full Name">
-        <input type="email" value="<%=user_info.email%>" name="email" id="email" placeholder="Enter your Email ID">
-        <input type="number" value="<%=user_info.age%>" name="age" id="age" placeholder="Enter your Age">
-        <input type="text" value="<%=user_info.gender%>" name="gender" id="gender" placeholder="Enter your Gender">
-        <input type="number" value="<%=user_info.cpi%>" name="cpi" id="cpi" placeholder="Enter your CPI">
-        <textarea name="address" id="address" cols="30" rows="10" placeholder="Enter your address"><%=user_info.address%></textarea>
-        <button id="update">Update Profile</button>
-    </form>
-    
+    <div class="page-wrapper bg-blue p-t-100 p-b-100 font-robo">
+        <div class="wrapper wrapper--w680">
+            <div class="card card-1">
+                <div class="card-heading"></div>
+                <div class="card-body">
+                    <h2 class="title">Student Update Form</h2>
+                    <form action="/edit_student/<%= user_info._id%>" method="POST" id="form">
+                        <input type="hidden" value="<%=user_info._id%>" name="_id">
+                        <div class="one_line">
+                            <div class="input-group">
+                                <input class="input--style-1" value="<%=user_info.name%>" type="text" placeholder="Full Name" name="name">
+                            </div>
+                            <div class="input-group-col2">
+                                <input class="input--style-1" value="<%=user_info.email%>" type="email" placeholder="Email" name="email">
+                            </div>
+                        </div>
+                        
+                        <div class="one_line">
+                            <div class="input-group">
+                                <input class="input--style-1" value="<%=user_info.age%>" type="number" placeholder="Age" name="age">
+                            </div>
+                            <div class="input-group-col2">
+                                <input class="input--style-1" value="<%=user_info.batch%>" type="number" placeholder="Batch" name="batch">
+                            </div>
+                            
+                        </div>
+                       
+                        <div class="one_line">
+                            
+                            <div class="input-group">
+                                <input class="input--style-1" value="<%=user_info.cpi%>" type="number" placeholder="CPI" name="cpi">
+                            </div>
+                            <div class="input-group-col2" id="tech_stack">
+                                <input class="input--style-1" value="<%=user_info.techstack%>" type="text" placeholder="TechStack" name="techstack">
+                            </div>
+                        </div>
+                        <div class="p-t-20">
+                            <button class="btn btn--radius btn--green" type="submit">Update Profile</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    </div>
         <script>
             let para =document.getElementById('update');
             para.addEventListener('click',function run(){

@@ -1,1 +1,0 @@
-document.getElementById(email).innerHTML="fg";

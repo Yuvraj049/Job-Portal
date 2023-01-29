@@ -13,10 +13,13 @@ const company_Register = require("./registers/company_registers.js") //used in p
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
-console.log(__dirname)
+app.use('/static',express.static('views')) //to access css files stored in ./views/css
 
+console.log(__dirname)
+app.set('views',path.join(__dirname,'views'))
 const static_path = path.join(__dirname+"/views");
 app.set('view engine', 'ejs');
+
 app.get('/',(req,res)=>{
     res.status(200).sendFile(static_path+'/home.html')
 });
@@ -48,7 +51,8 @@ app.post('/student_signup_register',async (req,res)=>{
                 age:req.body.age,
                 gender:req.body.gender,
                 cpi:req.body.cpi,
-                address:req.body.address,
+                batch:req.body.batch,
+                techstack:req.body.techstack,
                 password:password,
                 confirmpassword:cpassword
             })
@@ -76,12 +80,12 @@ app.post('/company_signup_register',async (req,res)=>{
             const registerUser = new company_Register({
                 name:req.body.name,
                 email:req.body.email,
-                required_age:req.body.req_age,
                 required_cpi:req.body.req_cpi,
                 website:req.body.website,
-                position_required:req.body.position_req,
+                position_required:req.body.post,
                 package:req.body.package,
                 description:req.body.description,
+                address:req.body.address,
                 password:password,
                 confirmpassword:cpassword
             })
@@ -190,6 +194,7 @@ app.post("/edit_student/:id", async(req,res)=>{
         if(!_id){
             return res.status(400).send();
         }
+        
         console.log(`${updateUser.id}`);
         res.render("student_profile",{user_info:updates});
         console.log(`Account ${updateUser.email} Updated`)
@@ -234,13 +239,11 @@ app.get("/eligible_company/:id",async(req,res)=>{
             return res.status(400).send();
         }
         
-    let comp_data = await company_Register.find( // used as array in eligible_companies.ejs
+    const comp_data = await company_Register.find( // used as array in eligible_companies.ejs
         {
         "$and":[
-        {required_age:user_info.age},
-        {required_cpi:user_info.cpi}
+        {required_cpi:{$lte:user_info.cpi}}
         ]})
-
         res.status(201).render("eligible_companies",{comp_data:comp_data});
     }catch(error){
         res.status(500).send(error.message);

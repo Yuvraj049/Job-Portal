@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhaina+2:wght@500&family=Oswald&family=Ubuntu&display=swap');
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Oswald', sans-serif;
+}
+.users{
+    display: flex;
+    justify-content: center;
+}
+.box{
+    background-color: red;
+    width: 300px;
+    height: 300px;
+    margin: 3em;
+    text-align: center;
+}

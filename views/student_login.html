@@ -4,18 +4,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=], initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="./css/student_login.css">
+    <title>Student Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./static/css/student_login.css">
 </head>
 <body>
-    <h1>Login here</h1>
-    <form action="/student_login_register" method="post" id="contact">
-        <input type="email" required name="email" id="email" placeholder="Enter your Email ID">
-        <input type="text" required name="password" id="password" placeholder="Enter your Password">
-        <button class="btn">Login</button>
+    
+    <form action="/student_login_register" method="POST" id="contact">
+        <h1>Login here</h1><br>
+        <label for="email">E-mail</label>
+        <input type="email" id="email" placeholder="E-mail" name="email">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Password" name="password">
+        <p id="message"></p>
+        <input type="submit" value="LOGIN"/>
+        <div class="already_signed">
+            Don't have an account?<a href="/student_signup">&nbsp;&nbsp;signup here</a>
+        </div>
     </form>
-    <div>
-        Don't have an acoount?<a href="/student_signup">signup here</a>
-    </div>
+    
 </body>
 </html>

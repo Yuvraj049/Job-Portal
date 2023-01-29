@@ -4,26 +4,67 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign up</title>
-    <link rel="stylesheet" href="./css/company_signup.css">
+    <title>Company Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./static/css/company_signup.css">
 </head>
 <body>
-    <h1>Header</h1>
-    <form action="/company_signup_register" method="post" id="contact">
-        <input type="text" name="name" id="name" placeholder="Enter Company Name">
-        <input type="email" name="email" id="email" placeholder="Enter Email">
-        <input type="number" name="req_age" id="req_age" placeholder="Required Age Group">
-        <input type="number" name="req_cpi" id="req_cpi" placeholder="Required CPI">
-        <input type="text" name="website" id="website" placeholder="Enter Official Website">
-        <input type="text" name="position_req" id="position_req" placeholder="Enter Position Required">
-        <input type="text" name="package" id="package" placeholder="Package to Give">
-        <textarea name="description" id="description" cols="30" rows="10" placeholder="More About the Company"></textarea>
-        <input type="text" name="password" id="password" placeholder="Enter your Password">
-        <input type="text" name="confirmpassword" id="confirmpassword" placeholder="Confirm Your Password">
-        <button class="btn">Submit Details</button>
-    </form>
-    <div>
-        Already signed up?<a href="/company_login">Login</a>
+    <div class="page-wrapper bg-blue p-t-100 p-b-100 font-robo">
+        <div class="wrapper wrapper--w680">
+            <div class="card card-1">
+                <div class="card-heading"></div>
+                <div class="card-body">
+                    <h2 class="title">Company Registration Form</h2>
+                    <form method="POST" action="/company_signup_register">
+                        <div class="one_line">
+                            <div class="input-group">
+                                <input class="input--style-1" type="text" placeholder="Company Name" name="name">
+                            </div>
+                            <div class="input-group-col2">
+                                <input class="input--style-1" type="email" placeholder="Company Email" name="email">
+                            </div>
+                        </div>
+                        <div class="one_line">
+                            <div class="input-group">
+                                <input class="input--style-1"  style="width:300px; margin-right:-10px;" type="text" placeholder="Post available" name="post">
+                            </div>
+                            <div class="input-group" style="margin-right:0px;">
+                                <input class="input--style-3"  type="number" placeholder="Minimum CPI" name="req_cpi">
+                            </div>
+                            <div class="input-group-col2" id="tech_stack">
+                                <input class="input--style-1" type="text" placeholder="Package for the post" name="package">
+                            </div>
+                        </div>
+                        <div class="one_line"> 
+                        </div>
+                        <div class="input-group">
+                            <input class="input--style-2" type="text" placeholder="Official Website" name="website">
+                        </div>
+                        <div class="input-group">
+                            <input class="input--style-2" type="text" placeholder="Description about the company" name="description">
+                        </div>
+                        <div class="input-group">
+                            <input class="input--style-2" type="text" placeholder="Address of the Company" name="address">
+                       </div>
+                        <div class="one_line">
+                            <div class="input-group">
+                                <input class="input--style-1" type="password" placeholder="Password" name="password">
+                            </div>
+                            <div class="input-group-col2">
+                                <input class="input--style-1" type="password" placeholder="Confirm Password" name="confirmpassword">
+                            </div>
+                        </div>
+                        <div class="p-t-20">
+                            <button class="btn btn--radius btn--green" type="submit">Submit</button>
+                        </div>
+                    </form>
+                    <div class="already_signed">
+                        Already registered?<a href="/company_login">&nbsp;&nbsp;login here</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </body>
 </html>
