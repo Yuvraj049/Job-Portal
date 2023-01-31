@@ -16,12 +16,12 @@ app.use(express.urlencoded({extended:false}));
 app.use('/static',express.static('views')) //to access css files stored in ./views/css
 
 console.log(__dirname)
-app.set('views',path.join(__dirname,'views'))
+// app.set('views',path.join(__dirname,'views'))
 const static_path = path.join(__dirname+"/views");
 app.set('view engine', 'ejs');
 
 app.get('/',(req,res)=>{
-    res.status(200).sendFile(static_path+'/home.html')
+    res.status(200).render('home');
 });
 app.get('/company_signup',(req,res)=>{
     res.status(200).sendFile(static_path+'/company_signup.html')
@@ -152,8 +152,10 @@ app.get("/delete_student/:id",async (req,res)=>{
         if(!_id){
             return res.status(400).send();
         }
-        res.send("Account Deleted Successfully");
-        console.log(`Account ${deleteUser.email} Deleted`)
+        
+        res.status(200).render('home');
+        console.log(`Account ${deleteUser.email} Deleted`);
+        
     }catch(error){
         res.status(500).send(error);
     }

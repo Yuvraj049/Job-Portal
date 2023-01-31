@@ -16,7 +16,7 @@ const userSchema2 = new mongoose.Schema({
         required:true
     },
     required_cpi:{
-        type:Number,
+        type:mongoose.Types.Decimal128,
         required:true
     },
     package:{
@@ -28,7 +28,8 @@ const userSchema2 = new mongoose.Schema({
         required:true,
     },
     description:{
-        type:String
+        type:String,
+        required:true
     },
     address:{
         type:String,

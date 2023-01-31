@@ -4,23 +4,58 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign up</title>
-    <link rel="stylesheet" href="./css/company_signup.css">
+    <title>Update Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/company_signup.css">
 </head>
 <body>
-    <h1>Edit Here</h1>
-    <form action="/edit_company/<%= user_info._id%>" method="post" id="contact">
-        <input type="hidden" value="<%=user_info._id%>" name="_id">
-        <input type="text" value="<%=user_info.name%>" name="name" id="name" placeholder="Enter Company Name">
-        <input type="email" value="<%=user_info.email%>" name="email" id="email" placeholder="Enter Email">
-        <input type="text" value="<%=user_info.position_required%>" name="position_required" id="position_req" placeholder="Enter Position Required">
-        <input type="number" value="<%=user_info.required_cpi%>" name="required_cpi" id="req_cpi" placeholder="Required CPI">
-        <input type="text" value="<%=user_info.package%>" name="package" id="package" placeholder="Package to Give">
-        <input type="text" value="<%=user_info.website%>" name="website" id="website" placeholder="Enter Official Website">
-        <input type="text" value="<%=user_info.description%>" name="description" id="description" placeholder="Description">
-        <input type="text" value="<%=user_info.address%>" name="address" id="address" placeholder="Address">
-        <button id="update">Update Profile</button>
-    </form>
+    <div class="page-wrapper bg-blue p-t-100 p-b-100 font-robo">
+        <div class="wrapper wrapper--w680">
+            <div class="card card-1">
+                <div class="card-heading"></div>
+                <div class="card-body">
+                    <h2 class="title">Company Registration Form</h2>
+                    <form action="/edit_company/<%= user_info._id%>" method="post" id="contact">
+                        <input type="hidden" value="<%=user_info._id%>" name="_id">
+                        <div class="one_line">
+                            <div class="input-group">
+                                <input class="input--style-1" value="<%=user_info.name%>" type="text" placeholder="Company Name" name="name">
+                            </div>
+                            <div class="input-group-col2">
+                                <input class="input--style-1" value="<%=user_info.email%>" type="email" placeholder="Company Email" name="email">
+                            </div>
+                        </div>
+                        <div class="one_line">
+                            <div class="input-group">
+                                <input class="input--style-1" value="<%=user_info.position_required%>"  style="width:300px; margin-right:-10px;" type="text" placeholder="Post available" name="position_required">
+                            </div>
+                            <div class="input-group" style="margin-right:0px;">
+                                <input class="input--style-3" value="<%=user_info.required_cpi%>"  type="number" placeholder="Minimum CPI" name="required_cpi">
+                            </div>
+                            <div class="input-group-col2" id="tech_stack">
+                                <input class="input--style-1" value="<%=user_info.package%>" type="text" placeholder="Package for the post" name="package">
+                            </div>
+                        </div>
+                        <div class="one_line"> 
+                        </div>
+                        <div class="input-group">
+                            <input class="input--style-2" value="<%=user_info.website%>" type="text" placeholder="Official Website" name="website">
+                        </div>
+                        <div class="input-group">
+                            <input class="input--style-2" value="<%=user_info.description%>" type="text" placeholder="Description about the company" name="description">
+                        </div>
+                        <div class="input-group">
+                            <input class="input--style-2" value="<%=user_info.address%>" type="text" placeholder="Address of the Company" name="address">
+                       </div>
     
+                        <div class="p-t-20">
+                            <button class="btn btn--radius btn--green" type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    </div>
 </body>
 </html>

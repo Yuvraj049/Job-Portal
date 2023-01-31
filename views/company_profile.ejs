@@ -7,7 +7,7 @@
     <title>Company Profile</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
-	  <link rel="stylesheet" href="./static/css/company_profile.css">
+	  <link rel="stylesheet" href="/static/css/company_profile.css">
 </head>
 <body>
 		
@@ -32,7 +32,7 @@
       <div class="col-lg-4">
         <div class="card shadow-sm">
           <div class="card-header bg-transparent text-center" style="margin-top: 16px; margin-bottom: 16px;">
-            <img class="profile_img" src="./static/img/company_image.jpg" alt="student dp">
+            <img class="profile_img" src="/static/img/company_image.jpg" alt="student dp">
             <h3></h3>
           </div>
           <div class="card-body" style="margin: 11px;">
@@ -85,8 +85,10 @@
         <div class="card shadow-sm">
           <div class="card-header bg-transparent border-0">
             <h3 class="mb-0" id="buttons">
-                <a id ="delete"  onclick="confirmDelete()"  href="/delete_company/<%= user_info._id%>">Delete Account</a>
-                <a id="edit" href="/edit_company/<%= user_info._id%>">Edit Profile</a>
+                <!-- <a id ="delete"  onclick="confirmDelete()"  href="/delete_company/<%= user_info._id%>">Delete Account</a>
+                <a id="edit" href="/edit_company/<%= user_info._id%>">Edit Profile</a> -->
+                <a onclick="confirmDelete() "><button id ="delete">Delete Account</button></a>
+                <a href="/edit_company/<%= user_info._id%>"><button  id="edit">Edit Profile</button></a>
             </h3>
           </div>
         </div>
@@ -101,15 +103,17 @@
     </div>
 </section>
 <script>
-    function confirmDelete(){
-        let confirm = confirm("Do you really want to delete this account?");
-        if(confirm){
-            console.log(`yes`);
-        }
-        else{
-            console.log(`no`);
-        }
-    }
+  function confirmDelete(){
+      
+      let v = confirm("Do you really want to delete this account?");
+
+      if(v){
+        window.location.href = "/delete_company/<%= user_info._id%>";
+        
+        alert("Account Deleted Successfully");
+      }
+      
+  }
 </script>
 	</body>
 </html>

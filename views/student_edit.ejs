@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Student Sign Up</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
-    <link href="./static/css/student_edit.css" rel="stylesheet" media="all">
+    <link href="/static/css/student_signup.css" rel="stylesheet" media="all">
 </head>
 <body>
     <div class="page-wrapper bg-blue p-t-100 p-b-100 font-robo">
@@ -15,8 +15,9 @@
                 <div class="card-heading"></div>
                 <div class="card-body">
                     <h2 class="title">Student Update Form</h2>
-                    <form action="/edit_student/<%= user_info._id%>" method="POST" id="form">
+                    <form action="/edit_student/<%=user_info._id%>" method="POST" id="form">
                         <input type="hidden" value="<%=user_info._id%>" name="_id">
+                        <input type="hidden" value="<%=user_info.gender%>" name="gender">
                         <div class="one_line">
                             <div class="input-group">
                                 <input class="input--style-1" value="<%=user_info.name%>" type="text" placeholder="Full Name" name="name">
@@ -54,11 +55,6 @@
         </div>
         
     </div>
-        <script>
-            let para =document.getElementById('update');
-            para.addEventListener('click',function run(){
-            alert('Do you really want to save the update your profile?');
-        });
-        </script>
+        
 </body>
 </html>

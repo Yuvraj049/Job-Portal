@@ -1,3 +1,4 @@
+
 *{
     padding: 0;
     margin: 0;
@@ -5,9 +6,9 @@
     font-family: "Poppins",sans-serif;
 }
 body {
-    background: #67B26F;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #4ca2cd, #67B26F);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #4ca2cd, #67B26F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #67B26F;  
+    background: -webkit-linear-gradient(to right, #4ca2cd, #67B26F);  
+    background: linear-gradient(to right, #4ca2cd, #67B26F); 
     padding: 0;
     margin: 0;
     font-family: 'Lato', sans-serif;
@@ -32,7 +33,34 @@ h1{
 }
 .mb-0 #delete{
     color: red;
+    border: none;
+    font-size: 20px;
+    font-weight: 700;
+    margin-right: 70px;
+    margin-left: 70px;
+    background-color: white;
 }
+.mb-0 #edit{
+    color: blue;
+    border: none;
+    font-size: 20px;
+    font-weight: 700;
+    margin-right: 70px;
+    margin-left: 70px;
+    background-color: white;
+}
+.mb-0 button:focus{
+    outline: none;
+}
+.mb-0 #delete:hover{
+    cursor: pointer;
+    text-decoration:underline;
+}
+.mb-0 #edit:hover{
+    cursor: pointer;
+    text-decoration:underline;
+}
+
 #buttons{
     display: flex;
     justify-content: center;
@@ -41,9 +69,7 @@ h1{
     margin-right: 70px;
     margin-left: 70px;
 }
-#eligible_company{
-    color: green;
-}
+
 .student-profile .card h3 {
     font-size: 20px;
     font-weight: 700;
