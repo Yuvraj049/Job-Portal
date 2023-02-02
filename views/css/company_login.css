@@ -12,6 +12,10 @@ body{
         #7a37ff
     );
 }
+.formerror{
+    color: red;
+    margin-bottom: 10px;
+  }
 h1{
     text-align: center;
     margin-bottom: 10px;
@@ -40,10 +44,10 @@ input{
     color: #101010;
     border-radius: 10px;
 }
-#email{
-    margin-bottom: 30px;
+#email1{
+    margin-bottom: 5px;
 }
-#email,#password{
+#email1,#password1{
     border: 2px solid #c2c2c2;
 }
 input[type="submit"]{

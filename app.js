@@ -3,13 +3,15 @@ const app = express();
 const path = require('path');
 //bcrypt hashing
 const bcrypt = require('bcryptjs');
-
+const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 const hostname = '127.0.0.1';
 const port = 4000;
-require("./db/loginsignup");
 const student_Register = require("./registers/students_registers.js") //used in post/register
 const company_Register = require("./registers/company_registers.js") //used in post/register
-
+const auth = require("./authorization/auth.js");
+require("./db/loginsignup");
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
@@ -19,6 +21,19 @@ console.log(__dirname)
 // app.set('views',path.join(__dirname,'views'))
 const static_path = path.join(__dirname+"/views");
 app.set('view engine', 'ejs');
+
+//generate token for the user
+// objec id and secret key(longer better last 32)
+// const createToken = async() =>{
+//     const token = await jwt.sign({_id:"63d9f6657082d814d94f0c1e"},"tokentokentokentokentokentoken",{
+//         expiresIn:"5 seconds"
+//     });
+//     console.log(`${token}`);
+
+//     const userVerify = await jwt.verify(token,"tokentokentokentokentokentoken");
+//     console.log(`${JSON.stringify(userVerify)}`);
+// }
+// createToken();
 
 app.get('/',(req,res)=>{
     res.status(200).render('home');
@@ -56,6 +71,14 @@ app.post('/student_signup_register',async (req,res)=>{
                 password:password,
                 confirmpassword:cpassword
             })
+            //generate token
+            const token = await registerUser.generateAuthToken();
+            
+            console.log(`User data:-${registerUser}`);
+            
+            //get token and store in cookies
+            res.cookie("jwt",token); //cookie name and token value to add
+
             //password hashing
 
             //save data to database
@@ -112,9 +135,14 @@ app.post('/student_login_register',async (req,res)=>{
 
         const is_password_match = await bcrypt.compare(password,user_email.password);
 
+        const token = await user_email.generateAuthToken();
+        console.log(`\ntoken :- ${token}\n`);
+
+        res.cookie("jwt",token);
+
         if(is_password_match){
             res.status(201).render("student_profile",{user_info:user_email});
-            console.log(`student_email:${email} \npassword:${password} \nhashed password:${user_email.password}`);
+            console.log(`student email:${email}`);
         }else{
             res.send('wrong password')
         }
@@ -174,13 +202,14 @@ app.get("/delete_company/:id",async (req,res)=>{
     }
 })
 
-app.get("/edit_student/:id",async(req,res)=>{
+app.get("/edit_student/:id",auth ,async(req,res)=>{
     try{
         const user_id = req.params.id;
         const user_info = await student_Register.findOne({_id:user_id});
         if(!user_id){
             return res.status(400).send();
         }
+        console.log(`\ntoken :- ${req.cookies.jwt}`);
         res.status(201).render("student_edit",{user_info:user_info})
     }catch(error){
         res.status(500).send(error.message);
