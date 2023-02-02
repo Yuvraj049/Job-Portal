@@ -15,41 +15,50 @@
                 <div class="card-heading"></div>
                 <div class="card-body">
                     <h2 class="title">Company Registration Form</h2>
-                    <form action="/edit_company/<%= user_info._id%>" method="post" id="contact">
+                    <form action="/edit_company/<%= user_info._id%>" method="post" id="update_form">
                         <input type="hidden" value="<%=user_info._id%>" name="_id">
                         <div class="one_line">
                             <div class="input-group">
-                                <input class="input--style-1" value="<%=user_info.name%>" type="text" placeholder="Company Name" name="name">
+                                <input id="companyname" class="input--style-1" value="<%=user_info.name%>" type="text" placeholder="Company Name" name="name">
+                                <label for="companyname">Company Name</label><br>
                             </div>
                             <div class="input-group-col2">
-                                <input class="input--style-1" value="<%=user_info.email%>" type="email" placeholder="Company Email" name="email">
+                                <input id="email" class="input--style-1" value="<%=user_info.email%>" type="email" placeholder="Company Email" name="email">
+                                <label for="email">Email</label><br>
                             </div>
                         </div>
                         <div class="one_line">
                             <div class="input-group">
-                                <input class="input--style-1" value="<%=user_info.position_required%>"  style="width:300px; margin-right:-10px;" type="text" placeholder="Post available" name="position_required">
+                                <input id="position" class="input--style-1" value="<%=user_info.position_required%>"  style="width:300px; margin-right:-10px;" type="text" placeholder="Post available" name="position_required">
+                                <label for="position">Position</label><br>
                             </div>
                             <div class="input-group" style="margin-right:0px;">
-                                <input class="input--style-3" value="<%=user_info.required_cpi%>"  type="number" placeholder="Minimum CPI" name="required_cpi">
+                                <input id="cpi" class="input--style-3" value="<%=user_info.required_cpi%>"  type="number" placeholder="Minimum CPI" name="required_cpi">
+                                <br>
+                                <label for="cpi">CPI</label><br>
                             </div>
                             <div class="input-group-col2" id="tech_stack">
-                                <input class="input--style-1" value="<%=user_info.package%>" type="text" placeholder="Package for the post" name="package">
+                                <input id="package" class="input--style-1" value="<%=user_info.package%>" type="text" placeholder="Package for the post" name="package">
+                                <label for="package">Package</label><br>
                             </div>
                         </div>
                         <div class="one_line"> 
                         </div>
                         <div class="input-group">
-                            <input class="input--style-2" value="<%=user_info.website%>" type="text" placeholder="Official Website" name="website">
+                            <input id="website" class="input--style-2" value="<%=user_info.website%>" type="text" placeholder="Official Website" name="website">
+                            <label for="webite">Website</label><br>
                         </div>
                         <div class="input-group">
-                            <input class="input--style-2" value="<%=user_info.description%>" type="text" placeholder="Description about the company" name="description">
+                            <input id="description" class="input--style-2" value="<%=user_info.description%>" type="text" placeholder="Description about the company" name="description">
+                            <label for="description">Description</label><br>
                         </div>
                         <div class="input-group">
-                            <input class="input--style-2" value="<%=user_info.address%>" type="text" placeholder="Address of the Company" name="address">
+                            <input id="address" class="input--style-2" value="<%=user_info.address%>" type="text" placeholder="Address of the Company" name="address">
+                            <label for="address">Address</label><br>
                        </div>
     
                         <div class="p-t-20">
-                            <button class="btn btn--radius btn--green" type="submit">Submit</button>
+                            <button onclick="confirmUpdate()" class="btn btn--radius btn--green" >Update Profile</button>
                         </div>
                     </form>
                 </div>
@@ -57,5 +66,16 @@
         </div>
         
     </div>
+    <script>
+        function confirmUpdate(){
+            
+            let v = confirm("Do you really want to update this account?");
+            if(v){
+                document.getElementById("update_form").submit();
+              alert("Account Deleted Successfully");
+            }
+            
+        }
+    </script> 
 </body>
 </html>

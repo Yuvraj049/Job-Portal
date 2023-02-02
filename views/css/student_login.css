@@ -16,6 +16,10 @@ h1{
     text-align: center;
     margin-bottom: 10px;
 }
+.formerror{
+    color: red;
+    margin-bottom: 10px;
+  }
 form{
     background-color: #ffffff;
     width: 450px;
@@ -40,10 +44,10 @@ input{
     color: #101010;
     border-radius: 10px;
 }
-#email{
-    margin-bottom: 30px;
+.password{
+    margin-top: 5px;
 }
-#email,#password{
+#email1,#password1{
     border: 2px solid #c2c2c2;
 }
 input[type="submit"]{
@@ -54,7 +58,8 @@ input[type="submit"]{
     font-size: 15px;
     letter-spacing: 1px;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 20px;
+    
 }
 .already_signed{
     display: flex;
@@ -67,9 +72,3 @@ input[type="submit"]{
     text-decoration: none;
     
   }
-p{
-    font-size: 14px;
-    margin: 15px 0;
-    display: inline-block;
-    color: #ffffff;
-}

@@ -5,7 +5,7 @@ const path = require('path');
 const bcrypt = require('bcryptjs');
 
 const hostname = '127.0.0.1';
-const port = 3000;
+const port = 4000;
 require("./db/loginsignup");
 const student_Register = require("./registers/students_registers.js") //used in post/register
 const company_Register = require("./registers/company_registers.js") //used in post/register

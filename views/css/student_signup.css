@@ -9,6 +9,9 @@
     box-sizing: border-box;
     font-family: "Poppins",sans-serif;
   }
+  .formerror{
+    color: red;
+  }
   button {
     outline: none;
     background: none;
@@ -81,17 +84,19 @@
     position: relative;
     margin-bottom: 30px;
     margin-right:60px;
+    text-align: center;
     /* border-bottom: 2px solid #ccc; */
   }
   .input-group-col2{
     width: 400px;
     position: relative;
     margin-bottom: 30px;
+    text-align: center;
     /* border-bottom: 2px solid #ccc; */
   }
   #tech_stack{
     width: 500px;
-    margin: auto;
+    /* margin: auto; */
     margin-bottom: 30px;
   }
   .input--style-1 {

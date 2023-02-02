@@ -73,19 +73,21 @@
     box-shadow: none;
     width: 100%;
     font-size: 14px;
-    font-family: inherit;
+    font-family: inherit;   
   }
   .input-group {
     width: 400px;
     position: relative;
     margin-bottom: 30px;
     margin-right:50px;
+    text-align: center;
     /* border-bottom: 2px solid #ccc; */
   }
   .input-group-col2{
     width: 400px;
     position: relative;
     margin-bottom: 30px;
+    text-align: center;
     /* border-bottom: 2px solid #ccc; */
   }
   #tech_stack{
