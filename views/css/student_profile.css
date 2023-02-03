@@ -35,8 +35,8 @@ h1{
     border: none;
     font-size: 20px;
     font-weight: 700;
-    margin-right: 70px;
-    margin-left: 70px;
+    margin-right: 50px;
+    margin-left: 50px;
     background-color: white;
 }
 .mb-0 #edit{
@@ -44,8 +44,8 @@ h1{
     border: none;
     font-size: 20px;
     font-weight: 700;
-    margin-right: 70px;
-    margin-left: 70px;
+    margin-right: 50px;
+    margin-left: 50px;
     background-color: white;
 }
 .mb-0 #eligible_company{
@@ -53,8 +53,17 @@ h1{
     border: none;
     font-size: 20px;
     font-weight: 700;
-    margin-right: 70px;
-    margin-left: 70px;
+    margin-right: 50px;
+    margin-left: 50px;
+    background-color: white;
+}
+.mb-0 #logout{
+    color: rebeccapurple;
+    border: none;
+    font-size: 20px;
+    font-weight: 700;
+    margin-right: 50px;
+    margin-left: 50px;
     background-color: white;
 }
 .mb-0 button:focus{
@@ -69,6 +78,10 @@ h1{
     text-decoration:underline;
 }
 .mb-0 #eligible_company:hover{
+    cursor: pointer;
+    text-decoration:underline;
+}
+.mb-0 #logout:hover{
     cursor: pointer;
     text-decoration:underline;
 }

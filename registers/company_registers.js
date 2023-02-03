@@ -42,14 +42,31 @@ const userSchema2 = new mongoose.Schema({
     confirmpassword:{
         type:String,
         required:true
-    }
+    },
+    tokens:[{
+        token:{
+            type:String,
+            required:true
+        }
+    }]
 })
+
+userSchema2.methods.generateAuthToken = async function(){
+    try{
+        const token = jwt.sign({_id:this._id.toString()},"tokentokentokentokentokentoken");
+        this.tokens = this.tokens.concat({token:token});
+        await this.save();
+        return token;
+    }catch(error){
+        console.log(error);
+    }
+}
 
 userSchema2.pre("save", async function(next){// to execute before "save"
 
     if(this.isModified("password")){ // if a user changes its password then only it will hash
         const hashed_password = await bcrypt.hash(this.password,10); //this.password = the password of the current template
-        console.log(`the current password is ${this.password} and hashed password is ${hashed_password}`);
+        console.log(`hashed password :- ${hashed_password}`);
         this.password=hashed_password;
         this.confirmpassword=undefined;
         next(); // to execute the next line of code in app.js

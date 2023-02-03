@@ -9,7 +9,8 @@ const hostname = '127.0.0.1';
 const port = 4000;
 const student_Register = require("./registers/students_registers.js") //used in post/register
 const company_Register = require("./registers/company_registers.js") //used in post/register
-const auth = require("./authorization/auth.js");
+const auth_student = require("./authorization/auth_student.js");
+const auth_company = require("./authorization/auth_company.js");
 require("./db/loginsignup");
 app.use(cookieParser());
 app.use(express.json());
@@ -112,6 +113,11 @@ app.post('/company_signup_register',async (req,res)=>{
                 password:password,
                 confirmpassword:cpassword
             })
+            const token = await registerUser.generateAuthToken();
+            
+            console.log(`User data:-${registerUser}`);
+            
+            res.cookie("jwt",token);
             
             const registerd = await registerUser.save();
             res.status(201).render("company_profile",{user_info:registerUser}); // 201 status code if we create something
@@ -161,6 +167,11 @@ app.post('/company_login_register',async (req,res)=>{
         const user_email = await company_Register.findOne({email:email});
         const is_password_match = await bcrypt.compare(password,user_email.password);
 
+        const token = await user_email.generateAuthToken();
+        console.log(`\ntoken :- ${token}\n`);
+
+        res.cookie("jwt",token);
+
         if(is_password_match){
             res.status(201).render("company_profile",{user_info:user_email});
             console.log(`company_email:${email} \npassword:${password} \nhashed password:${user_email.password}`);
@@ -173,7 +184,7 @@ app.post('/company_login_register',async (req,res)=>{
     }
 })
 
-app.get("/delete_student/:id",async (req,res)=>{
+app.get("/delete_student/:id",auth_student,async (req,res)=>{
     try{
         const _id = req.params.id;
         const deleteUser = await student_Register.findByIdAndDelete(_id);
@@ -188,7 +199,7 @@ app.get("/delete_student/:id",async (req,res)=>{
         res.status(500).send(error);
     }
 })
-app.get("/delete_company/:id",async (req,res)=>{
+app.get("/delete_company/:id",auth_company,async (req,res)=>{
     try{
         const _id = req.params.id;
         const deleteUser = await company_Register.findByIdAndDelete(_id);
@@ -202,7 +213,7 @@ app.get("/delete_company/:id",async (req,res)=>{
     }
 })
 
-app.get("/edit_student/:id",auth ,async(req,res)=>{
+app.get("/edit_student/:id",auth_student,async(req,res)=>{
     try{
         const user_id = req.params.id;
         const user_info = await student_Register.findOne({_id:user_id});
@@ -233,13 +244,14 @@ app.post("/edit_student/:id", async(req,res)=>{
         console.log(error.messsage)
     }
 })
-app.get("/edit_company/:id",async(req,res)=>{
+app.get("/edit_company/:id",auth_company,async(req,res)=>{
     try{
         const user_id = req.params.id;
         const user_info = await company_Register.findOne({_id:user_id});
     if(!user_id){
         return res.status(400).send();
     }
+    console.log(`\ntoken :- ${req.cookies.jwt}`);
     res.status(201).render("company_edit",{user_info:user_info})
     }catch(error){
         res.status(500).send(error.message);
@@ -262,7 +274,7 @@ app.post("/edit_company/:id", async(req,res)=>{
     }
 })
 
-app.get("/eligible_company/:id",async(req,res)=>{
+app.get("/eligible_company/:id",auth_student,async(req,res)=>{
     try{
         const user_id = req.params.id;
         const user_info = await student_Register.findOne({_id:user_id});
@@ -278,6 +290,38 @@ app.get("/eligible_company/:id",async(req,res)=>{
         res.status(201).render("eligible_companies",{comp_data:comp_data});
     }catch(error){
         res.status(500).send(error.message);
+    }
+})
+app.get("/logout_student",auth_student,async(req,res)=>{
+    try{
+        console.log(`${req.user}`);
+        console.log(`${req.token}`);
+        req.user.tokens = req.user.tokens.filter((currentToken)=>{
+            return currentToken.token != req.token;// req.token = current token
+        })//clear from database
+
+        res.clearCookie("jwt"); // clears only from site
+        console.log(`logout successfully`);
+        await req.user.save();
+        res.status(200).redirect('/');
+    }catch(error){
+        res.status(500).send(error);
+    }
+})
+app.get("/logout_company",auth_company,async(req,res)=>{
+    try{
+        console.log(`${req.user}`);
+        console.log(`${req.token}`);
+        req.user.tokens = req.user.tokens.filter((currentToken)=>{
+            return currentToken.token != req.token;// req.token = current token
+        })//clear from database
+
+        res.clearCookie("jwt"); // clears only from site
+        console.log(`logout successfully`);
+        await req.user.save();
+        res.status(200).redirect('/');
+    }catch(error){
+        res.status(500).send(error);
     }
 })
 
