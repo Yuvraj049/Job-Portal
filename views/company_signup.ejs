@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="/static/css/company_signup.css">
 </head>
 <body>
+    <% if (message) { %>
+        <div class="alert alert-danger" role="alert">
+            <strong><%=message%></strong>
+          </div>
+      <% } %>
     <div class="page-wrapper bg-blue p-t-100 p-b-100 font-robo">
         <div class="wrapper wrapper--w680">
             <div class="card card-1">

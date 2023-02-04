@@ -5,6 +5,8 @@ const path = require('path');
 const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+const session = require('express-session');
+var flash = require('connect-flash');
 const hostname = '127.0.0.1';
 const port = 4000;
 const student_Register = require("./registers/students_registers.js") //used in post/register
@@ -15,8 +17,13 @@ require("./db/loginsignup");
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
-
 app.use('/static',express.static('views')) //to access css files stored in ./views/css
+app.use(session({
+    secret:'flashblog',
+    saveUninitialized: true,
+    resave: true
+}));
+app.use(flash());
 
 console.log(__dirname)
 // app.set('views',path.join(__dirname,'views'))
@@ -35,21 +42,20 @@ app.set('view engine', 'ejs');
 //     console.log(`${JSON.stringify(userVerify)}`);
 // }
 // createToken();
-
 app.get('/',(req,res)=>{
-    res.status(200).render('home');
+    res.status(200).render('home',{message:''});
 });
 app.get('/company_signup',(req,res)=>{
-    res.status(200).sendFile(static_path+'/company_signup.html')
+    res.status(200).render('company_signup',{message:''});
 });
 app.get('/company_login',(req,res)=>{
-    res.status(200).sendFile(static_path+'/company_login.html')
+    res.status(200).render('company_login',{message:''});
 });
 app.get('/student_login',(req,res)=>{
-    res.status(200).sendFile(static_path+'/student_login.html')
+    res.status(200).render('student_login',{message:''});
 });
 app.get('/student_signup',(req,res)=>{
-    res.status(200).sendFile(static_path+'/student_signup.html')
+    res.status(200).render('student_signup',{message:''});
 });
 
 //SIGNUP
@@ -84,14 +90,16 @@ app.post('/student_signup_register',async (req,res)=>{
 
             //save data to database
             const registerd = await registerUser.save();
-            res.status(201).render("student_profile",{user_info:registerUser}) // 201 status code if we create something
+            
+            res.status(201).render("student_profile",{user_info:registerUser,message:''}) // 201 status code if we create something
         }
         else{
-            res.send("Passwords are not matching");
+            res.send("Passwords are not matching"); // not goona work used because js is used in html
         }
 
     }catch(error){
-        res.status(400).send(error);
+        req.flash('already_email','The Account is already registered, Login to continue!')
+        res.status(201).render("student_signup",{message:req.flash('already_email')});
     }
 })
 app.post('/company_signup_register',async (req,res)=>{
@@ -120,13 +128,14 @@ app.post('/company_signup_register',async (req,res)=>{
             res.cookie("jwt",token);
             
             const registerd = await registerUser.save();
-            res.status(201).render("company_profile",{user_info:registerUser}); // 201 status code if we create something
+            res.status(201).render("company_profile",{user_info:registerUser,message:''}); // 201 status code if we create something
         }
         else{
             res.send("Passwords are not matching");
         }
     }catch(error){
-        res.status(400).send(error);
+        req.flash('already_email','The Company is already registered, Login to continue!')
+        res.status(201).render("company_signup",{message:req.flash('already_email')});
     }
 })
 
@@ -143,18 +152,20 @@ app.post('/student_login_register',async (req,res)=>{
 
         const token = await user_email.generateAuthToken();
         console.log(`\ntoken :- ${token}\n`);
-
+        
         res.cookie("jwt",token);
 
         if(is_password_match){
-            res.status(201).render("student_profile",{user_info:user_email});
+            res.status(201).render("student_profile",{user_info:user_email,message:''});
             console.log(`student email:${email}`);
         }else{
-            res.send('wrong password')
+            req.flash('password_not_match', 'Wrong Password!');
+            res.status(201).render("student_login",{message:req.flash('password_not_match')});
         }
         
     }catch(error){
-        res.status(400).send("invalid Email");
+        req.flash('no_email','Account not found in the Database!')
+        res.status(201).render("student_login",{message:req.flash('no_email')});
     }
     
 })
@@ -173,14 +184,16 @@ app.post('/company_login_register',async (req,res)=>{
         res.cookie("jwt",token);
 
         if(is_password_match){
-            res.status(201).render("company_profile",{user_info:user_email});
-            console.log(`company_email:${email} \npassword:${password} \nhashed password:${user_email.password}`);
+            res.status(201).render("company_profile",{user_info:user_email,message:''});
+            console.log(`student email:${email}`);
         }else{
-            res.send('wrong password')
+            req.flash('password_not_match', 'Wrong Password!');
+            res.status(201).render("company_login",{message:req.flash('password_not_match')});
         }
         
     }catch(error){
-        res.status(400).send("invalid Email");
+            req.flash('no_email','Account not found in the Database!')
+            res.status(201).render("company_login",{message:req.flash('no_email')});
     }
 })
 
@@ -191,10 +204,9 @@ app.get("/delete_student/:id",auth_student,async (req,res)=>{
         if(!_id){
             return res.status(400).send();
         }
-        
-        res.status(200).render('home');
+        req.flash('delete','Account deleted successfully!')
+        res.status(200).render('home',{message:req.flash('delete')});
         console.log(`Account ${deleteUser.email} Deleted`);
-        
     }catch(error){
         res.status(500).send(error);
     }
@@ -206,8 +218,9 @@ app.get("/delete_company/:id",auth_company,async (req,res)=>{
         if(!_id){
             return res.status(400).send();
         }
-        res.send("Account Deleted Successfully");
-        console.log(`Account ${deleteUser.email} Deleted`)
+        req.flash('delete','Account deleted successfully!')
+        res.status(200).render('home',{message:req.flash('delete')});
+        console.log(`Account ${deleteUser.email} Deleted`);
     }catch(error){
         res.status(500).send(error);
     }
@@ -221,7 +234,7 @@ app.get("/edit_student/:id",auth_student,async(req,res)=>{
             return res.status(400).send();
         }
         console.log(`\ntoken :- ${req.cookies.jwt}`);
-        res.status(201).render("student_edit",{user_info:user_info})
+        res.status(201).render("student_edit",{user_info:user_info,message:''})
     }catch(error){
         res.status(500).send(error.message);
     }
@@ -229,19 +242,25 @@ app.get("/edit_student/:id",auth_student,async(req,res)=>{
 
 app.post("/edit_student/:id", async(req,res)=>{
     
+    const user_id = req.params.id;
+    const user_info = await student_Register.findOne({_id:user_id});
     try{
-        const _id = req.params.id;
-        const updates = req.body; 
-        const updateUser = await student_Register.findByIdAndUpdate(_id,updates);
-        if(!_id){
-            return res.status(400).send();
+        const updates = req.body;
+        if(updates.email == user_info.email){
+        res.render("student_profile",{user_info:updates,message:''});
+        return;
         }
-        
-        console.log(`${updateUser.id}`);
-        res.render("student_profile",{user_info:updates});
+        const updateUser = await student_Register.findByIdAndUpdate(user_id,updates);
+        if(!user_id){
+            return res.status(400).send(error);
+        }
+        req.flash('updated','Account updated sucessfully!')
+        res.status(201).render("student_profile",{user_info:updates,message:req.flash('updated')});
+        console.log(`\nUpdated user ${updateUser.id}`);
         console.log(`Account ${updateUser.email} Updated`)
     }catch(error){
-        console.log(error.messsage)
+        req.flash('taken_email','Account already exists in the Database!')
+        res.status(201).render("student_edit",{user_info:user_info,message:req.flash('taken_email')});
     }
 })
 app.get("/edit_company/:id",auth_company,async(req,res)=>{
@@ -252,7 +271,7 @@ app.get("/edit_company/:id",auth_company,async(req,res)=>{
         return res.status(400).send();
     }
     console.log(`\ntoken :- ${req.cookies.jwt}`);
-    res.status(201).render("company_edit",{user_info:user_info})
+    res.status(201).render("company_edit",{user_info:user_info,message:''})
     }catch(error){
         res.status(500).send(error.message);
     }
@@ -260,17 +279,24 @@ app.get("/edit_company/:id",auth_company,async(req,res)=>{
 
 app.post("/edit_company/:id", async(req,res)=>{
 
+    const user_id = req.params.id;
+    const user_info = await company_Register.findOne({_id:user_id});
     try{
-        const _id = req.params.id;
         const updates = req.body; 
-        const updateUser = await company_Register.findByIdAndUpdate(_id,updates);
-        if(!_id){
+        if(updates.email == user_info.email){
+            res.render("company_profile",{user_info:updates,message:''});
+            return;
+        }
+        const updateUser = await company_Register.findByIdAndUpdate(user_id,updates);
+        if(!user_id){
             return res.status(400).send();
         }
-        res.status(201).render("company_profile",{user_info:updates});
+        req.flash('updated','Account updated sucessfully!')
+        res.status(201).render("company_profile",{user_info:updates,message:req.flash('updated')});
         console.log(`Account ${updateUser.email} Updated`)
     }catch(error){
-        console.log(error.messsage)
+        req.flash('taken_email','Account already exists in the Database!')
+        res.status(201).render("company_edit",{user_info:user_info,message:req.flash('taken_email')});
     }
 })
 
@@ -294,7 +320,6 @@ app.get("/eligible_company/:id",auth_student,async(req,res)=>{
 })
 app.get("/logout_student",auth_student,async(req,res)=>{
     try{
-        console.log(`${req.user}`);
         console.log(`${req.token}`);
         req.user.tokens = req.user.tokens.filter((currentToken)=>{
             return currentToken.token != req.token;// req.token = current token
@@ -303,7 +328,9 @@ app.get("/logout_student",auth_student,async(req,res)=>{
         res.clearCookie("jwt"); // clears only from site
         console.log(`logout successfully`);
         await req.user.save();
-        res.status(200).redirect('/');
+        req.flash('logout','Logged out successfully!');
+        res.status(201).render('home',{message:req.flash('logout')});
+        // res.status(200).redirect('/');
     }catch(error){
         res.status(500).send(error);
     }
@@ -315,11 +342,12 @@ app.get("/logout_company",auth_company,async(req,res)=>{
         req.user.tokens = req.user.tokens.filter((currentToken)=>{
             return currentToken.token != req.token;// req.token = current token
         })//clear from database
-
         res.clearCookie("jwt"); // clears only from site
         console.log(`logout successfully`);
         await req.user.save();
-        res.status(200).redirect('/');
+        req.flash('logout','Logged out successfully!');
+        res.status(201).render('home',{message:req.flash('logout')});
+        // res.status(200).redirect('/',{message:req.flash('logout')});
     }catch(error){
         res.status(500).send(error);
     }

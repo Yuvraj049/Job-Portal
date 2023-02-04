@@ -63,7 +63,7 @@ userSchema1.methods.generateAuthToken = async function(){
 userSchema1.pre("save", async function(next){// to execute before "save"
 
     if(this.isModified("password")){ // if a user changes its password then only it will hash
-        hashed_password = await bcrypt.hash(this.password,10); //this.password = the password of the current template
+        const hashed_password = await bcrypt.hash(this.password,10); //this.password = the password of the current template
         console.log(`hashed password :- ${hashed_password}`);
         this.password=hashed_password;
         this.confirmpassword=undefined; // will not store confirm password

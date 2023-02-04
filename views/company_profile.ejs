@@ -10,7 +10,11 @@
 	  <link rel="stylesheet" href="/static/css/company_profile.css">
 </head>
 <body>
-		
+  <% if (message) { %>
+    <div class="alert alert-success" role="alert">
+      <strong><%=message%></strong>
+      </div>
+  <% } %>
 <header class="ScriptHeader">
     <div class="rt-container">
     	<div class="col-rt-12">
