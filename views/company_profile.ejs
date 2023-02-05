@@ -89,8 +89,6 @@
         <div class="card shadow-sm">
           <div class="card-header bg-transparent border-0">
             <h3 class="mb-0" id="buttons">
-                <!-- <a id ="delete"  onclick="confirmDelete()"  href="/delete_company/<%= user_info._id%>">Delete Account</a>
-                <a id="edit" href="/edit_company/<%= user_info._id%>">Edit Profile</a> -->
                 <a onclick="confirmDelete() "><button id ="delete">Delete Account</button></a>
                 <a href="/edit_company/<%= user_info._id%>"><button  id="edit">Edit Profile</button></a>
                 <a href="/logout_company"><button id="logout">Logout</button></a>
@@ -122,16 +120,3 @@
 </script>
 	</body>
 </html>
-
-<!-- <ul> -->
-    <!-- <li class="name">Name:<%=user_info.name%></li>
-    <li class="email">Email:<%=user_info.email%></li>
-    <li class="position">Postion Vacant:<%=user_info.position_required%></li>
-    <li class="cpi">Required CPI:<%=user_info.required_cpi%></li>
-    <li class="package">Package:<%=user_info.package%></li>
-    <li class="web">Official Website:<%=user_info.website%></li>
-    <li class="description">Desciption:<%=user_info.description%></li>
-    <li class="description">Address:<%=user_info.address%></li>
-</ul>
-<a id ="delete" href="/delete_company/<%= user_info._id%>">delete</a>
-<a id="edit" href="/edit_company/<%= user_info._id%>">edit</a> -->

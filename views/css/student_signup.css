@@ -180,4 +180,17 @@
       padding-bottom: 40px;
     }
   }
+  @media all  and (min-width:466px) and (max-width:714px){
+    #gender{
+      width: 200px;
+    }
+}
+@media all and (max-width:465px){
+    form{
+        width: 300px;
+    }
+    input{
+        width: 100%; 
+    }
+}
   

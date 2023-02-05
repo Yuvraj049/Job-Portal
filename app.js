@@ -30,18 +30,6 @@ console.log(__dirname)
 const static_path = path.join(__dirname+"/views");
 app.set('view engine', 'ejs');
 
-//generate token for the user
-// objec id and secret key(longer better last 32)
-// const createToken = async() =>{
-//     const token = await jwt.sign({_id:"63d9f6657082d814d94f0c1e"},"tokentokentokentokentokentoken",{
-//         expiresIn:"5 seconds"
-//     });
-//     console.log(`${token}`);
-
-//     const userVerify = await jwt.verify(token,"tokentokentokentokentokentoken");
-//     console.log(`${JSON.stringify(userVerify)}`);
-// }
-// createToken();
 app.get('/',(req,res)=>{
     res.status(200).render('home',{message:''});
 });
@@ -246,18 +234,13 @@ app.post("/edit_student/:id", async(req,res)=>{
     const user_info = await student_Register.findOne({_id:user_id});
     try{
         const updates = req.body;
-        if(updates.email == user_info.email){
-        res.render("student_profile",{user_info:updates,message:''});
-        return;
-        }
-        const updateUser = await student_Register.findByIdAndUpdate(user_id,updates);
         if(!user_id){
             return res.status(400).send(error);
         }
-        req.flash('updated','Account updated sucessfully!')
+        const updateUser = await student_Register.findByIdAndUpdate(user_id,updates);
+        req.flash('updated','Account updated sucessfully!');
+        console.log(`Account ${updateUser.email} Updated`);
         res.status(201).render("student_profile",{user_info:updates,message:req.flash('updated')});
-        console.log(`\nUpdated user ${updateUser.id}`);
-        console.log(`Account ${updateUser.email} Updated`)
     }catch(error){
         req.flash('taken_email','Account already exists in the Database!')
         res.status(201).render("student_edit",{user_info:user_info,message:req.flash('taken_email')});
@@ -283,17 +266,13 @@ app.post("/edit_company/:id", async(req,res)=>{
     const user_info = await company_Register.findOne({_id:user_id});
     try{
         const updates = req.body; 
-        if(updates.email == user_info.email){
-            res.render("company_profile",{user_info:updates,message:''});
-            return;
-        }
-        const updateUser = await company_Register.findByIdAndUpdate(user_id,updates);
         if(!user_id){
             return res.status(400).send();
         }
-        req.flash('updated','Account updated sucessfully!')
+        const updateUser = await company_Register.findByIdAndUpdate(user_id,updates);
+        req.flash('updated','Account updated sucessfully!');
+        console.log(`Account ${updateUser.email} Updated`);
         res.status(201).render("company_profile",{user_info:updates,message:req.flash('updated')});
-        console.log(`Account ${updateUser.email} Updated`)
     }catch(error){
         req.flash('taken_email','Account already exists in the Database!')
         res.status(201).render("company_edit",{user_info:user_info,message:req.flash('taken_email')});
@@ -330,7 +309,6 @@ app.get("/logout_student",auth_student,async(req,res)=>{
         await req.user.save();
         req.flash('logout','Logged out successfully!');
         res.status(201).render('home',{message:req.flash('logout')});
-        // res.status(200).redirect('/');
     }catch(error){
         res.status(500).send(error);
     }
@@ -347,7 +325,6 @@ app.get("/logout_company",auth_company,async(req,res)=>{
         await req.user.save();
         req.flash('logout','Logged out successfully!');
         res.status(201).render('home',{message:req.flash('logout')});
-        // res.status(200).redirect('/',{message:req.flash('logout')});
     }catch(error){
         res.status(500).send(error);
     }

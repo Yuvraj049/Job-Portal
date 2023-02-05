@@ -103,3 +103,19 @@ input[type="submit"]{
     text-decoration: none;
     
   }
+@media all  and (min-width:466px) and (max-width:784px){
+    form{
+        width: 350px;
+    }
+    input{
+        width: 100%; 
+    }
+}
+@media all and (max-width:465px){
+    form{
+        width: 300px;
+    }
+    input{
+        width: 100%; 
+    }
+}

@@ -83,7 +83,6 @@ function validateForm(){
     var password = document.forms['form1']["password"].value;
     if (password.length == 0 ){
 
-        // Quiz: create a logic to allow only those passwords which contain atleast one letter, one number and one special character and one uppercase letter
         seterror("password", "*Enter your password");
         return false;
     }
