@@ -4,7 +4,27 @@
     box-sizing: border-box;
     font-family: "Poppins",sans-serif;
 }
-body {
+@media all  and (min-width:458px) and (max-width:972px){
+    .Boxes{
+        display: flex;
+        flex-direction: column;
+    }
+}
+@media all and (max-width:457px){
+    .Boxes{
+        display: flex;
+        flex-direction: column;
+    }
+    .box{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 150px;
+        height: 200px;
+        margin: 50px;
+    }
+}
+body{
     background: linear-gradient(to right, #3c9792, #93bc2a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     padding: 0;
     margin: 0;
