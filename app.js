@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -8,7 +9,7 @@ const cookieParser = require("cookie-parser");
 const session = require('express-session');
 var flash = require('connect-flash');
 const hostname = '127.0.0.1';
-const port = 4000 || 6010;
+const port = process.env.PORT || 6010;
 const student_Register = require("./registers/students_registers.js") //used in post/register
 const company_Register = require("./registers/company_registers.js") //used in post/register
 const auth_student = require("./authorization/auth_student.js");
@@ -45,9 +46,7 @@ app.get('/student_login',(req,res)=>{
 app.get('/student_signup',(req,res)=>{
     res.status(200).render('student_signup',{message:''});
 });
-
 //SIGNUP
-
 app.post('/student_signup_register',async (req,res)=>{
     try{
         const password = req.body.password;
@@ -126,9 +125,7 @@ app.post('/company_signup_register',async (req,res)=>{
         res.status(201).render("company_signup",{message:req.flash('already_email')});
     }
 })
-
 //LOGIN
-
 app.post('/student_login_register',async (req,res)=>{
     try{
         const email = req.body.email;
@@ -157,7 +154,6 @@ app.post('/student_login_register',async (req,res)=>{
     }
     
 })
-
 app.post('/company_login_register',async (req,res)=>{
     try{
         const email = req.body.email;
@@ -184,7 +180,6 @@ app.post('/company_login_register',async (req,res)=>{
             res.status(201).render("company_login",{message:req.flash('no_email')});
     }
 })
-
 app.get("/delete_student/:id",auth_student,async (req,res)=>{
     try{
         const _id = req.params.id;
@@ -213,7 +208,6 @@ app.get("/delete_company/:id",auth_company,async (req,res)=>{
         res.status(500).send(error);
     }
 })
-
 app.get("/edit_student/:id",auth_student,async(req,res)=>{
     try{
         const user_id = req.params.id;
@@ -227,7 +221,6 @@ app.get("/edit_student/:id",auth_student,async(req,res)=>{
         res.status(500).send(error.message);
     }
 })
-
 app.post("/edit_student/:id", async(req,res)=>{
     
     const user_id = req.params.id;
@@ -259,7 +252,6 @@ app.get("/edit_company/:id",auth_company,async(req,res)=>{
         res.status(500).send(error.message);
     }
 })
-
 app.post("/edit_company/:id", async(req,res)=>{
 
     const user_id = req.params.id;
@@ -278,7 +270,6 @@ app.post("/edit_company/:id", async(req,res)=>{
         res.status(201).render("company_edit",{user_info:user_info,message:req.flash('taken_email')});
     }
 })
-
 app.get("/eligible_company/:id",auth_student,async(req,res)=>{
     try{
         const user_id = req.params.id;
@@ -329,7 +320,6 @@ app.get("/logout_company",auth_company,async(req,res)=>{
         res.status(500).send(error);
     }
 })
-
 app.listen(port,()=>{
     console.log('Server running at http://'+hostname+':'+port+'/');
 });
