@@ -27,7 +27,7 @@ The Job Portal System serves as a comprehensive platform designed to streamline 
 
 1. **Clone the Repository**
    ```bash
-   https://github.com/Yuvraj049/WOC5.0-node-jobportal-Yuvraj.git
+   https://github.com/Yuvraj049/Job-Portal.git
    ```
 
 2. **Install Dependencies**
@@ -47,4 +47,4 @@ The Job Portal System serves as a comprehensive platform designed to streamline 
 
 <div align="center">
 
-## Access the site : (https://yuvraj-woc.onrender.com/)</div>
+## Access the site : (https://job-portal-three-kappa.vercel.app/)</div>
