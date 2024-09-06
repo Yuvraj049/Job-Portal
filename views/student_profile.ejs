@@ -87,8 +87,8 @@
           <div class="card-header bg-transparent border-0">
             <h3 class="mb-0" id="buttons">
                 <a onclick="confirmDelete()"><button id ="delete">Delete Account</button></a>
-                <a href="/edit_student/<%= user_info._id%>"><button  id="edit">Edit Profile</button></a>
-                <a href="/eligible_company/<%= user_info._id%>"><button id="eligible_company">Eligible Companies</button></a>
+                <a href="/edit_student"><button  id="edit">Edit Profile</button></a>
+                <a href="/eligible_company"><button id="eligible_company">Eligible Companies</button></a>
                 <a href="/logout_student"><button id="logout">Logout</button></a>
             </h3>
           </div>
@@ -109,7 +109,7 @@
         let v = confirm("Do you really want to delete this account?");
 
         if(v){
-          window.location.href = "/delete_student/<%= user_info._id%>";
+          window.location.href = "/delete_student";
         }
         
     }

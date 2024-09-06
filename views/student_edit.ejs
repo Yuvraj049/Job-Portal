@@ -20,9 +20,7 @@
                 <div class="card-heading"></div>
                 <div class="card-body">
                     <h2 class="title">Student Update Form</h2>
-                    <form name="form1" onsubmit="return validateForm()" action="/edit_student/<%=user_info._id%>" method="POST">
-                        <input type="hidden" value="<%=user_info._id%>" name="_id">
-                        <input type="hidden" value="<%=user_info.gender%>" name="gender">
+                    <form name="form1" onsubmit="return validateForm()" action="/edit_student" method="POST">
                         <div class="one_line">
                             <div class="input-group" id="name">
                                 <input id="fullname" class="input--style-1" value="<%=user_info.name%>" type="text" placeholder="Full Name" name="name">

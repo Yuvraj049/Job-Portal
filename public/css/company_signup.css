@@ -170,7 +170,7 @@
     border-radius: 40px;
   }
   .card-1 .card-heading {
-    background: url("../img/bg-head-02.jpg") center center/cover no-repeat;
+    background: url("/static/img/bg-head-02.jpg") center center/cover no-repeat;
     padding-top: 210px;
   }
   .card-1 .card-body {

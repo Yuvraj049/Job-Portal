@@ -20,8 +20,8 @@
                 <div class="card-heading"></div>
                 <div class="card-body">
                     <h2 class="title">Company Registration Form</h2>
-                    <form onsubmit="return validateForm()" name="form1" action="/edit_company/<%= user_info._id%>"   method="post" id="update_form">
-                        <input type="hidden" value="<%=user_info._id%>" name="_id">
+                    <form onsubmit="return validateForm()" name="form1" action="/edit_company"   method="post" id="update_form">
+                        <!-- <input type="hidden" value="<%=user_info._id%>" name="_id"> -->
                         <div class="one_line">
                             <div class="input-group" id="name">
                                 <input  class="input--style-1" value="<%=user_info.name%>" type="text" placeholder="Company Name" name="name">

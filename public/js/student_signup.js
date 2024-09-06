@@ -92,7 +92,6 @@ function validateForm(){
         seterror("confirmpassword", "*Password and Confirm password should match!");
         return false;
     }
-
     return returnval;
 }
 

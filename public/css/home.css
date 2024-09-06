@@ -92,10 +92,10 @@ a{
     
 }
 #box_1{
-    background: url("../img/student_image_2.jpg") center center/cover no-repeat;;
+    background: url("/static/img/student_image_2.jpg") center center/cover no-repeat;;
 }
 #box_2{
-    background: url("../img/company_image_2.png") center center/cover no-repeat;;
+    background: url("/static/img/company_image_2.png") center center/cover no-repeat;;
     
 }
 .Boxes h1{
