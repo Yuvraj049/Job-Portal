@@ -3,8 +3,6 @@ const bcrypt = require('bcryptjs');
 const getToken = require('../../middlewares/getToken.js');
 const companyRegister = async (req, res) => {
     try{
-        console.log(req.body);
-        console.log(company_Register);
         const hashed_password = await bcrypt.hash(req.body.password,10);
         console.log(hashed_password);
         const newUser = new company_Register({
@@ -25,14 +23,15 @@ const companyRegister = async (req, res) => {
         console.log(`\nToken :- ${token}`);
 
         // store in cookies
-        res.cookie("user", token, { maxAge: 3600000, httpOnly: true }); //cookie name and value of cookie // httpOnly so that cookie is not accesible by javascript
+        res.cookie("company", token, { maxAge: 3600000, httpOnly: true }); //cookie name and value of cookie // httpOnly so that cookie is not accesible by javascript
 
         //save data to database
         await newUser.save();
-        res.status(201).render("company_profile",{user_info:newUser,message:''}); // 201 status code if we create something
+        req.flash('success',{type:'success',content:'Signed up successfully!'});
+        res.redirect('/company_profile');
     }catch(error){
-        req.flash('already_email','The Company is already registered, Login to continue!')
-        res.status(201).render("company_signup",{message:req.flash('already_email')});
+        req.flash('warning',{type:'warning',content:'Account already exists, Login to continue!'});
+        res.status(400).redirect('/company_signup');
     }
 };
 module.exports = companyRegister;

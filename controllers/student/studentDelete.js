@@ -9,8 +9,8 @@ const studentDelete = async (req, res) => {
         console.log(`\nAccount ${deleteUser.email} Deleted`);
         res.clearCookie('user'); // clears only from browser
         
-        req.flash('delete','Account deleted successfully!')
-        res.status(200).render('home',{message:req.flash('delete')});
+        req.flash('success',{type:'success',content:'Account deleted successfully!'});
+        res.status(200).redirect('/');
     }catch(error){
         res.status(500).send(error);
     }

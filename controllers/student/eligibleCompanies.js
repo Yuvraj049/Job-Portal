@@ -7,12 +7,8 @@ const eligibleCompanies = async (req, res) => {
         if(!user_id){
             return res.status(400).send();
         }
-        const comp_data = await company_Register.find( // used as array in eligible_companies.ejs
-        {
-        "$and":[
-        {required_cpi:{$lte:user_info.cpi}}
-        ]})
-        res.status(201).render("eligible_companies",{comp_data:comp_data});
+        const comp_data = await company_Register.find({required_cpi:{$lte:user_info.cpi}});
+        res.status(200).render("eligible_companies",{comp_data:comp_data,message:req.flashMessage});
     }catch(error){
         res.status(500).send(error.message);
     }

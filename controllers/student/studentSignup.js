@@ -21,14 +21,15 @@ const studentRegister = async (req, res) => {
         console.log(`\nToken :- ${token}`);
 
         // store in cookies
-        res.cookie("user", token, { maxAge: 3600000, httpOnly: true }); //cookie name and value of cookie // httpOnly so that cookie is not accesible by javascript
+        res.cookie("student", token, { maxAge: 3600000, httpOnly: true }); //cookie name and value of cookie // httpOnly so that cookie is not accesible by javascript
 
         //save data to database
         await newUser.save();
-        res.status(201).render("student_profile",{user_info:newUser,message:''}) // 201 status code if we create something
+        req.flash('success',{type:'success',content:'Signed up successfully!'});
+        res.redirect('/student_profile');
         }catch(error){
-            req.flash('already_email','The Account is already registered, Login to continue!')
-            res.status(400).render("student_signup",{message:req.flash('already_email')});
+            req.flash('warning',{type:'warning',content:'Account already exists, Login to continue!'});
+            res.status(400).redirect('/student_signup');
         }
 };
 module.exports = studentRegister;

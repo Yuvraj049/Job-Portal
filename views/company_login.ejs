@@ -6,14 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Company Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="/static/css/company_login.css">
 </head>
 <body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <% if (message) { %>
-        <div class="alert alert-danger" role="alert">
-            <strong><%=message%></strong>
-          </div>
-      <% } %>
+        <script>
+          const messageType = '<%= message.type %>';
+          const messageContent = '<%= message.content %>';
+          toastr[messageType](messageContent);
+        </script>
+    <% } %>
+    
     <form onsubmit="return validateForm()" action="/company_login_register" method="POST" id="contact" name="form1">
         <h1>Login here</h1><br>
         <label for="email1">E-mail</label>

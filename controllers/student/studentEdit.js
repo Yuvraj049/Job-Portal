@@ -9,12 +9,12 @@ const studentEdit = async(req,res)=>{
     try{
         const updateUser = await student_Register.findByIdAndUpdate(user_id,updates);
         console.log(`\nAccount ${updateUser.email} Updated`);
-        req.flash('updated','Account updated sucessfully!');
-        
-        res.status(201).render("student_profile",{user_info:updates,message:req.flash('updated')});
+        req.flash('success',{type:'success',content:'Account updated successfully!'});
+        res.redirect('/student_profile');
     }catch(error){
-        req.flash('taken_email','Account already exists in the Database!')
-        res.status(201).render("student_edit",{user_info:user_info,message:req.flash('taken_email')});
+        console.log(error.message);
+        req.flash('warning',{type:'warning',content:'Account already exists in the Database!'});
+        res.redirect('/student_profile');
     }
 };
 module.exports = studentEdit;

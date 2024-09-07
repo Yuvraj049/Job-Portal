@@ -23,14 +23,22 @@ app.use("/static", express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-const auth = require("./middlewares/auth.js");
+// Middlewares
+const auth_student = require("./middlewares/auth_student.js");
+const auth_company = require("./middlewares/auth_company.js");
 require("./db/connection.js");
+
+const flashMessage = require('./middlewares/flashMessage.js');
+
+
 
 // Controllers
 const studentSignup = require('./controllers/student/studentSignup.js');
 const companySignup= require('./controllers/company/companySignup.js');
 const studentLogin= require('./controllers/student/studentLogin.js');
 const companyLogin= require('./controllers/company/companyLogin.js');
+const studentProfile = require('./controllers/student/studentProfile.js');
+const companyProfile = require('./controllers/company/companyProfile.js');
 const studentDelete = require('./controllers/student/studentDelete.js');
 const companyDelete = require('./controllers/company/companyDelete.js');
 const studentViewEdit = require('./controllers/student/studentViewEdit.js');
@@ -42,38 +50,45 @@ const companyLogout = require('./controllers/company/companyLogout.js');
 const eligibleCompanies = require('./controllers/student/eligibleCompanies.js');
 
 // Routes
-app.get('/', (req,res) => res.status(200).render('home',{message:''}));
-app.get('/student_signup', (req,res) => res.status(200).render('student_signup',{message:''}));
-app.get('/company_signup', (req,res) => res.status(200).render('company_signup',{message:''}));
-app.get('/company_login', (req,res) => res.status(200).render('company_login',{message:''}));
-app.get('/student_login', (req,res) => res.status(200).render('student_login',{message:''}));
+app.get('/', flashMessage ,(req,res) => res.status(200).render('home',{message:req.flashMessage}));
+app.get('/student_signup',flashMessage , (req,res) => res.status(200).render('student_signup',{message:req.flashMessage}));
+app.get('/company_signup',flashMessage,(req,res) => res.status(200).render('company_signup',{message:req.flashMessage}));
+app.get('/company_login',flashMessage, (req,res) => res.status(200).render('company_login',{message:req.flashMessage}));
+app.get('/student_login',flashMessage, (req,res) => res.status(200).render('student_login',{message:req.flashMessage}));
 
-//Signup
+    // View Profile
+app.get('/student_profile',auth_student,flashMessage,studentProfile);
+app.get('/company_profile',auth_company,flashMessage,companyProfile);
+
+    //Signup
 app.post('/company_signup_register',companySignup);
 app.post('/student_signup_register',studentSignup);
 
-//Login
+    //Login
 app.post('/student_login_register',studentLogin);
 app.post('/company_login_register',companyLogin);
 
-//Delete
-app.get("/delete_student",auth,studentDelete);
-app.get("/delete_company",auth,companyDelete);
+    //Logout
+app.get("/logout_student",auth_student,studentLogout);
+app.get("/logout_company",auth_company,companyLogout);
 
-//Profile update
-app.get("/edit_student",auth,studentViewEdit);
-app.post("/edit_student",auth,studentEdit);
-app.get("/edit_company",auth,companyViewEdit);
-app.post("/edit_company",auth,companyEdit);
+    //Profile update
+app.get("/edit_student",auth_student,flashMessage,studentViewEdit);
+app.post("/edit_student",auth_student,studentEdit);
+app.get("/edit_company",auth_company,flashMessage,companyViewEdit);
+app.post("/edit_company",auth_company,companyEdit);
 
-//Eligible Companies
-app.get("/eligible_company",auth,eligibleCompanies)
+    //Eligible Companies
+app.get("/eligible_company",auth_student,flashMessage,eligibleCompanies)
 
-//Logout
-app.get("/logout_student",auth,studentLogout);
-app.get("/logout_company",auth,companyLogout);
+    //Delete
+app.get("/delete_student",auth_student,studentDelete);
+app.get("/delete_company",auth_company,companyDelete);
 
-
+    //Default route for undefined url
+app.use('*', (req, res) => {
+    res.status(404).send('404: Not Found');
+});
 
 const port = process.env.PORT || 4000;
 app.listen(port,()=>{

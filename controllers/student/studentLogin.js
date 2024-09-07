@@ -5,23 +5,22 @@ const studentLogin = async(req,res)=>{
     try{
         const email = req.body.email;
         const password = req.body.password;
-
         const user = await student_Register.findOne({email:email});
         const is_password_match = await bcrypt.compare(password,user.password);
         
         if(is_password_match){
             const token = getToken(user);
             console.log(`\nToken :- ${token}`);
-            res.cookie("user", token, { maxAge: 3600000, httpOnly: true });
-            res.status(201).render("student_profile",{user_info:user,message:''});
+            res.cookie("student", token, { maxAge: 3600000, httpOnly: true });
+            req.flash('success',{type:'success',content:'Login Successful!'});  // Store the flash message
+            res.redirect('/student_profile');
         }else{
-            req.flash('password_not_match', 'Wrong Password!');
-            res.status(201).render("student_login",{message:req.flash('password_not_match')});
+            req.flash('error', { type: 'error', content: 'Password not matched!' });
+            res.status(200).redirect('/student_login'); 
         }
-        
     }catch(error){
-        req.flash('no_email','Account not found in the Database!')
-        res.status(201).render("student_login",{message:req.flash('no_email')});
+        req.flash('error', { type: 'error', content: 'Account not found in the Database!' });
+        res.status(404).redirect('/student_login'); 
     }
 };
 module.exports = studentLogin;

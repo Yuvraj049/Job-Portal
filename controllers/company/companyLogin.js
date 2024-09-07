@@ -12,16 +12,16 @@ const companyLogin = async (req, res) => {
         if(is_password_match){
             const token = getToken(user);
             console.log(`\nToken :- ${token}`);
-            res.cookie("user", token, { maxAge: 3600000, httpOnly: true });
-            res.status(201).render("company_profile",{user_info:user,message:''});
+            res.cookie("company", token, { maxAge: 3600000, httpOnly: true });
+            req.flash('success',{type:'success',content:'Login Successful!'});
+            res.redirect('/company_profile');
         }else{
-            req.flash('password_not_match', 'Wrong Password!');
-            res.status(201).render("company_login",{message:req.flash('password_not_match')});
+            req.flash('error',{type:'error',content:'Password not matched!'});
+            res.redirect('/company_login');
         }
-        
     }catch(error){
-            req.flash('no_email','Account not found in the Database!')
-            res.status(201).render("company_login",{message:req.flash('no_email')});
+            req.flash('error',{type:'error',content:'Account not found in the Database!'});
+            res.redirect('/company_login');
     }
 };
 module.exports = companyLogin;

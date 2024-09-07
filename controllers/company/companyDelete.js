@@ -6,11 +6,11 @@ const companyDelete = async (req, res) => {
             return res.status(400).send();
         }
         const deleteUser = await company_Register.findByIdAndDelete(_id);
-        console.log(`Account ${deleteUser.email} Deleted`);
+        console.log(`\nAccount ${deleteUser.email} Deleted`);
         res.clearCookie('user'); // clears only from browser
         
-        req.flash('delete','Account deleted successfully!')
-        res.status(200).render('home',{message:req.flash('delete')});
+        req.flash('success',{type:'success',content:'Account deleted successfully!'});
+        res.status(200).redirect('/');
     }catch(error){
         res.status(500).send(error);
     }

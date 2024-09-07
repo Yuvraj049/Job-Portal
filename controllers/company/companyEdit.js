@@ -10,12 +10,11 @@ const companyEdit = async(req,res)=>{
     try{
         const updateUser = await company_Register.findByIdAndUpdate(user_id,updates);
         console.log(`\nAccount ${updateUser.email} Updated`);
-        req.flash('updated','Account updated sucessfully!');
-
-        res.status(201).render("company_profile",{user_info:updates,message:req.flash('updated')});
+        req.flash('success',{type:'success',content:'Account updated successfully!'});
+        res.status(201).redirect('/company_profile');
     }catch(error){
-        req.flash('taken_email','Account already exists in the Database!')
-        res.status(201).render("company_edit",{user_info:user_info,message:req.flash('taken_email')});
+        req.flash('warning',{type:'warning',content:'Account already exists in the Database!'});
+        res.status(403).redirect('/company_profile');
     }
 };
 module.exports = companyEdit;   
